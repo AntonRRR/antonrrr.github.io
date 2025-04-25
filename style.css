@@ -10,8 +10,8 @@ body {
 
 #game-container {
   margin: 0 auto;
-  width: 400px;
-  height: 700px;
+  width: 267px;   /* уменьшено с 400px */
+  height: 467px;  /* уменьшено с 700px */
   background-color: #444;
   border: 2px solid #fff;
   position: relative;
@@ -22,9 +22,9 @@ body {
 }
 
 #controls button {
-  font-size: 20px;
-  padding: 10px 20px;
-  margin: 0 10px;
+  font-size: 18px;       /* немного уменьшен для пропорций */
+  padding: 8px 16px;
+  margin: 0 8px;
   border: none;
   border-radius: 8px;
   background-color: #0088cc;

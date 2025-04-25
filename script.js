@@ -1,31 +1,31 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-const canvasWidth = canvas.width;
-const canvasHeight = canvas.height;
+const canvasWidth = 267;  // 400 / 1.5
+const canvasHeight = 467; // 700 / 1.5
 
 // Машинка
-const carWidth = 60;
-const carHeight = 120;
+const carWidth = 40;   // 60 / 1.5
+const carHeight = 80;  // 120 / 1.5
 let carX = (canvasWidth - carWidth) / 2;
-const carY = canvasHeight - carHeight - 20;
+const carY = canvasHeight - carHeight - 13; // пропорционально уменьшена
 
 const laneCount = 3;
 const laneWidth = canvasWidth / laneCount;
 
 let obstacles = [];
-const obstacleWidth = 60;
-const obstacleHeight = 100;
+const obstacleWidth = 40;  // 60 / 1.5
+const obstacleHeight = 67; // 100 / 1.5
 
-// Начальная скорость препятствий и параметры ускорения
-let obstacleSpeed = 4;
-const maxObstacleSpeed = 100;
-const speedIncrement = 0.5;
+// Скорости и ускорение
+let obstacleSpeed = 2.7;        // 4 / 1.5
+const maxObstacleSpeed = 8;     // 12 / 1.5
+const speedIncrement = 0.33;    // 0.5 / 1.5
 
 let gameOver = false;
 let score = 0;
 
-const carSpeed = 7;
+const carSpeed = 4.7;           // 7 / 1.5
 
 let moveLeftPressed = false;
 let moveRightPressed = false;
@@ -37,37 +37,37 @@ treeImg.src = 'https://i.imgur.com/7bKQv3V.png'; // пример дерева (�
 const otherCarImg = new Image();
 otherCarImg.src = 'https://i.imgur.com/2z6gXcA.png'; // пример машины (с прозрачным фоном)
 
-// Рисуем машинку с кабиной и колёсами
+// Рисуем машинку с кабиной и колёсами (уменьшенные пропорции)
 function drawCar() {
   // Корпус машины
   ctx.fillStyle = '#007700';
-  ctx.fillRect(carX, carY + 30, carWidth, carHeight - 30);
+  ctx.fillRect(carX, carY + 20, carWidth, carHeight - 20);
 
   // Кабина
   ctx.fillStyle = '#004400';
-  ctx.fillRect(carX + 10, carY, carWidth - 20, 40);
+  ctx.fillRect(carX + 7, carY, carWidth - 14, 27);
 
   // Колёса
   ctx.fillStyle = 'black';
-  const wheelRadius = 12;
+  const wheelRadius = 8;
   // Левые колёса
   ctx.beginPath();
-  ctx.ellipse(carX + 10, carY + 50, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
+  ctx.ellipse(carX + 7, carY + 35, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
   ctx.fill();
   ctx.beginPath();
-  ctx.ellipse(carX + 10, carY + 90, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
+  ctx.ellipse(carX + 7, carY + 65, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
   ctx.fill();
   // Правые колёса
   ctx.beginPath();
-  ctx.ellipse(carX + carWidth - 10, carY + 50, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
+  ctx.ellipse(carX + carWidth - 7, carY + 35, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
   ctx.fill();
   ctx.beginPath();
-  ctx.ellipse(carX + carWidth - 10, carY + 90, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
+  ctx.ellipse(carX + carWidth - 7, carY + 65, wheelRadius, wheelRadius * 0.7, 0, 0, 2 * Math.PI);
   ctx.fill();
 
   // Стёкла кабины
   ctx.fillStyle = '#99ccff';
-  ctx.fillRect(carX + 15, carY + 5, carWidth - 30, 30);
+  ctx.fillRect(carX + 10, carY + 4, carWidth - 20, 20);
 }
 
 // Рисуем препятствия (дерево или машина)
@@ -125,8 +125,8 @@ function clearCanvas() {
 
 function drawScore() {
   ctx.fillStyle = 'white';
-  ctx.font = '24px Arial';
-  ctx.fillText(`Счет: ${score}`, 10, 30);
+  ctx.font = '18px Arial';
+  ctx.fillText(`Счет: ${score}`, 10, 25);
 }
 
 function updateCarPosition() {
@@ -149,10 +149,10 @@ function increaseSpeed() {
 function gameLoop() {
   if (gameOver) {
     ctx.fillStyle = 'white';
-    ctx.font = '48px Arial';
-    ctx.fillText('Игра окончена!', 50, canvasHeight / 2);
-    ctx.font = '28px Arial';
-    ctx.fillText(`Ваш счет: ${score}`, 110, canvasHeight / 2 + 50);
+    ctx.font = '36px Arial';
+    ctx.fillText('Игра окончена!', 30, canvasHeight / 2);
+    ctx.font = '22px Arial';
+    ctx.fillText(`Ваш счет: ${score}`, 70, canvasHeight / 2 + 40);
     return;
   }
 
@@ -210,7 +210,7 @@ rightBtn.addEventListener('pointerleave', (e) => {
   moveRightPressed = false;
 });
 
-// Добавим управление с клавиатуры (стрелки)
+// Управление с клавиатуры (стрелки)
 window.addEventListener('keydown', (e) => {
   if (e.code === 'ArrowLeft') moveLeftPressed = true;
   if (e.code === 'ArrowRight') moveRightPressed = true;
@@ -227,7 +227,7 @@ function restartGame() {
   carX = (canvasWidth - carWidth) / 2;
   moveLeftPressed = false;
   moveRightPressed = false;
-  obstacleSpeed = 4; // сброс скорости при рестарте
+  obstacleSpeed = 2.7; // сброс скорости при рестарте
   gameLoop();
 }
 
