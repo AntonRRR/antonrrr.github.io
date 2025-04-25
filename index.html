@@ -18,5 +18,17 @@
   </div>
 
   <script src="script.js"></script>
+
+  <!-- Добавляем Telegram Web Apps API -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    // Функция для отправки данных в бота (например, счёт)
+    function sendScore(score) {
+      tg.sendData(JSON.stringify({ score: score }));
+    }
+  </script>
 </body>
 </html>
